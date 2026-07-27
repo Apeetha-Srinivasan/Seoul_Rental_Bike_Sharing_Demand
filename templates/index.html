@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seoul Bike Rental Prediction</title>
+
+    <style>
+
+        body{
+            background:#f4f6f9;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        .container{
+            width:550px;
+            margin:30px auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px lightgray;
+        }
+
+        h1{
+            text-align:center;
+            color:#2c3e50;
+        }
+
+        label{
+            font-weight:bold;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing:border-box;
+        }
+
+        input[type=submit]{
+            background:#007BFF;
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            padding:12px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        input[type=submit]:hover{
+            background:#0056b3;
+        }
+        select{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing:border-box;
+        }
+        .prediction{
+            margin-top:25px;
+            background:#d4edda;
+            color:#155724;
+            padding:15px;
+            border-radius:8px;
+            text-align:center;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>
+    <span style="font-size:45px;">🚲</span><br>
+    Seoul Bike Rental Prediction
+</h1>
+
+<form action="/predict" method="post">
+
+<label>Hour</label>
+<input type="number" name="Hour" placeholder="0 - 23" min="0" max="23" required>
+
+<label>Temperature (°C)</label>
+<input type="number" step="any" name="Temperature" placeholder="Example: 25" required>
+
+<label>Humidity (%)</label>
+<input type="number" step="any" name="Humidity" placeholder="Example: 60" min="0" max="100" required>
+
+<label>Wind Speed (m/s)</label>
+<input type="number" step="any" name="WindSpeed" placeholder="Example: 2.5" required>
+
+<label>Visibility (10m)</label>
+<input type="number" step="any" name="Visibility" placeholder="Example: 1800" required>
+
+<label>Solar Radiation (MJ/m2)</label>
+<input type="number" step="any" name="SolarRadiation" placeholder="Example: 0.5" required>
+
+<label>Rainfall (mm)</label>
+<input type="number" step="any" name="Rainfall" placeholder="Example: 0" required>
+
+<label>Snowfall (cm)</label>
+<input type="number" step="any" name="Snowfall" placeholder="Example: 0" required>
+
+<label>Functioning Day</label>
+<select name="FunctioningDay" required>
+    <option value="">Select</option>
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+</select>
+
+<label>Month</label>
+<select name="Month" required>
+    <option value="">Select Month</option>
+    <option value="1">January</option>
+    <option value="2">February</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
+</select>
+
+<label>Summer</label>
+<select name="Summer" required>
+    <option value="">Select</option>
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+</select>
+
+<label>Winter</label>
+<select name="Winter" required>
+    <option value="">Select</option>
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+</select>
+
+<input type="submit" value="Predict Bike Rentals">
+
+</form>
+
+{% if prediction_text %}
+<div class="prediction">
+    {{ prediction_text }}
+</div>
+{% endif %}
+
+
+
+<hr>
+
+<p style="text-align:center;color:gray;">
+    Developed using Flask, XGBoost and Python
+</p>
+</div>
+</body>
+</html>
